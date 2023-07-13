@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shreya's Birthday Houses</title>
+  <style>
+    /* CSS styles for house containers */
+    .house {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      width: 50%;
+    }
+
+    /* CSS styles for house names */
+    .house-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: purple;
+      font-size: 40px;
+    }
+
+    /* CSS styles for people list */
+    .people-list {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 20px;
+      font-size: 30px;
+    }
+  </style>
+  <script>
+    const houses = [
+      { name: "Ravenspire", id: "ravenspire-list", maxCount: 3 },
+      { name: "Nightshade", id: "nightshade-list", maxCount: 3 },
+      { name: "Moonshadow", id: "moonshadow-list", maxCount: 3 },
+      { name: "Midnight Manor", id: "midnight-manor-list", maxCount: 2 }
+    ];
+
+    const houseCounts = {
+      Ravenspire: 0,
+      Nightshade: 0,
+      Moonshadow: 0,
+      "Midnight Manor": 0
+    };
+
+    function sortIntoHouse() {
+      const nameInput = document.getElementById("name-input");
+      const name = nameInput.value.trim();
+
+      if (!name) {
+        alert("Please enter a name.");
+        return;
+      }
+
+      const availableHouses = houses.filter(
+        house => houseCounts[house.name] < house.maxCount
+      );
+
+      if (availableHouses.length === 0) {
+        alert("All houses are full.");
+        return;
+      }
+
+      const randomIndex = Math.floor(Math.random() * availableHouses.length);
+      const house = availableHouses[randomIndex];
+
+      const houseList = document.getElementById(house.id);
+      const personItem = document.createElement("li");
+      personItem.textContent = name;
+      houseList.appendChild(personItem);
+
+      houseCounts[house.name]++;
+      nameInput.value = "";
+    }
+  </script>
+</head>
+<body>
+    <center><br><br>
+        <h3 style="font-size: 70px;">Shreya's Birthday House Sorter</h3>
+        <p style="font-size: 40px; color: purple;">Step forward and sort yourself into a house to play the team games.</p><br><br><br><br><br><br>
+  <input type="text" id="name-input" placeholder="Enter your name" style="width: 30%;height: 40%;font-size: 30px;text-align: center;border: 2px solid purple; padding: 20px;"><br><br><br><br><br>
+  <button onclick="sortIntoHouse()" style="width: 10%; height: 30%; font-size: 30px; padding: 15px; background-color: purple; color: white; border: 3px dotted white;">Sort Me</button>
+<br><br><br><br><br><br><br><br>
+  <div class="house">
+    <h2 class="house-name">Ravenspire</h2>
+    <ul class="people-list" id="ravenspire-list"></ul>
+  </div>
+<br>
+  <div class="house">
+    <h2 class="house-name">Nightshade</h2>
+    <ul class="people-list" id="nightshade-list"></ul>
+  </div>
+<br>
+  <div class="house">
+    <h2 class="house-name">Moonshadow</h2>
+    <ul class="people-list" id="moonshadow-list"></ul>
+  </div>
+<br>
+  <div class="house">
+    <h2 class="house-name">Midnight Manor</h2>
+    <ul class="people-list" id="midnight-manor-list"></ul>
+  </div>
+</center>
+</body>
+</html>
